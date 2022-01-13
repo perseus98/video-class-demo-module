@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text("Home Screen"),
+            title: const Text("Home Screen"),
             leading: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () => homeSceenKey.currentState?.openDrawer(),
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
           StreamBuilder<QuerySnapshot>(
               stream: ScheduleCollection.getAllSchedules(),
               builder: (context, scheduleSnapshots) {
-            print(scheduleSnapshots.connectionState.toString());
+            // print(scheduleSnapshots.connectionState.toString());
             if (scheduleSnapshots.hasError) {
               return SliverFillRemaining(
                 child: Center(
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 List<QueryDocumentSnapshot<Object?>>? scheduleDataList =
                     scheduleSnapshots.data?.docs;
                 if (scheduleDataList!.isEmpty) {
-                  return SliverFillRemaining(
+                  return const SliverFillRemaining(
                     child: Center(
                       child: Text("No schedules found on the cloud"),
                     ),
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },childCount: scheduleDataList.length));
               case ConnectionState.none:
               case ConnectionState.waiting:
-                return SliverFillRemaining(
+                return const SliverFillRemaining(
                   child: Center(
                     child: BuilderProgressIndicator(),
                   ),
@@ -83,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: isTeacher
           ? FloatingActionButton.extended(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ScheduleClassScreen(restorationId: 'schedule_class'))),
-              label: Text("Schedule Class"),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ScheduleClassScreen(restorationId: 'schedule_class'))),
+              label: const Text("Schedule Class"),
             )
           : const Text(""),
     );
@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Text(FirebaseAuth.instance.currentUser?.email.toString() ?? "none"),
             SwitchListTile(
-               title: Text("Teacher Mode:"),
+               title: const Text("Teacher Mode:"),
                 value: isTeacher,
                 onChanged: (newValue) {
                   Navigator.pop(context);
